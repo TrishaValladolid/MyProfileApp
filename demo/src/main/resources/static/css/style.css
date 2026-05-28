@@ -1,0 +1,194 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Calibri, sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+}
+
+/* NAV BAR */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 20px 60px;
+    display: flex;
+    gap: 60px;
+    z-index: 1000;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+nav a {
+    color: #222222;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #748f8d;
+    /*color: #8285a4;*/
+    
+}
+
+
+/* HERO SECTION */
+#hero {
+    margin-top: 65px;
+    background-color: #748f8d;
+    padding: 80px 60px;
+    min-height: 45vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#hero h1 {
+    font-size: 36px;
+    color: #ffffff;
+    font-weight: normal;
+    line-height: 1.6;
+}
+
+/* ABOUT ME DETAILS SECTION */
+#about {
+    padding: 60px;
+    display: flex;
+    flex-direction: row;
+    gap: 80px;
+    min-height: 35vh;
+    align-items: flex-start;
+}
+
+.about-left p {
+    font-size: 15px;
+    color: #222222;
+    margin-bottom: 6px;
+    line-height: 1.7;
+}
+
+.about-right p {
+    font-size: 15px;
+    color: #222222;
+    line-height: 1.8;
+    max-width: 600px;
+}
+
+/* EDUCATION SECTION */
+#education {
+    background-color: #e9ebff;
+    padding: 60px;
+    min-height: 100vh;
+}
+
+#education h2 {
+    text-align: center;
+    font-size: 28px;
+    font-weight: normal;
+    color: #222222;
+    margin-bottom: 40px;
+}
+
+.edu-card {
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    padding: 30px 35px;
+    margin-bottom: 20px;
+}
+
+.edu-card h3 {
+    font-size: 26px;
+    font-weight: normal;
+    color: #222222;
+    margin-bottom: 6px;
+}
+
+.edu-card .edu-subtitle {
+    font-size: 14px;
+    color: #444444;
+    margin-bottom: 12px;
+}
+
+.edu-card p {
+    font-size: 15px;
+    color: #222222;
+    line-height: 1.7;
+    margin-bottom: 4px;
+}
+
+/* PROJECTS SECTION */
+#projects {
+    background-color: #fff6e9;
+    padding: 60px;
+    min-height: 100vh;
+}
+
+#projects h2 {
+    text-align: center;
+    font-size: 28px;
+    font-weight: normal;
+    color: #222222;
+    margin-bottom: 40px;
+}
+
+.proj-cards-wrapper {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    padding: 0 40px;
+}
+
+.proj-card {
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    padding: 30px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.proj-card h3 {
+    font-size: 22px;
+    font-weight: normal;
+    color: #222222;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.proj-card ul {
+    padding-left: 20px;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.proj-card ul li {
+    font-size: 15px;
+    color: #222222;
+    line-height: 1.7;
+    margin-bottom: 8px;
+}
+
+.proj-footer {
+    margin-top: auto;
+}
+
+.proj-footer p {
+    font-size: 14px;
+    color: #222222;
+    margin-bottom: 2px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 40px;
+    filter: invert(1);
+}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Trisha Laine Valladolid</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+    <nav>
+        <a href="#about">About Me</a>
+        <a href="#education">Education</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+    </nav>
+
+    <!-- ABOUT ME HERO -->
+    <section id="hero">
+        <h1 th:text="'Hello, I am ' + ${firstName} + '!'">Hello!</h1>
+        <h1>I am a Student, Java Developer, and Cat lover.</h1>
+    </section>
+
+    <!-- ABOUT ME DETAILS -->
+    <section id="about">
+        <div class="about-left">
+            <p><strong>Name:</strong> Trisha Valladolid</p>
+            <p><strong>School:</strong> De La Salle University</p>
+            <p><strong>Location:</strong> Metro Manila, Philippines</p>
+            <br>
+            <p><strong>Phone:</strong> 09691203789</p>
+            <p><strong>Email:</strong> trishvalla@gmail.com</p>
+        </div>
+        <div class="about-right">
+            <p>Trisha is a Java Developer living in the bustling Metro Manila. Her goal is
+            to collaborate with talented people and create meaningful technologies
+            with them. In her free time, you can find her cooking and watching sitcoms,
+            particularly Modern Family.</p>
+        </div>
+    </section>
+
+    <!-- EDUCATION SECTION -->
+    <section id="education">
+        <h2>Education</h2>
+
+        <div class="edu-card">
+            <h3>St. Paul College Pasig</h3>
+            <p class="edu-subtitle"><em>Senior High School | 2020-2022</em></p>
+            <p><strong>Course</strong>: Accountancy, Business, and Management</p>
+            <p><strong>Coursework</strong>: Fundamentals of Accounting, Principles of Marketing Organization and Management, Business Mathematics, Applied Economics, Entrepreneurship, Business Finance</p>
+            <p><strong>Certifications</strong>: Dance Varsity Achievement Award, Loyalty Award, Academic Excellence Award, Completion of Advanced Placement (AP) Program in Psychology</p>
+        </div>
+
+        <div class="edu-card">
+            <h3>De La Salle University</h3>
+            <p class="edu-subtitle"><em>Bachelor of Science | 2020-2022</em></p>
+            <p><strong>Major</strong>: Computer Science specialization in Network Information Security</p>
+            <p><strong>Coursework</strong>: Network Security Vulnerability Assessment and Management, Cybersecurity Operations, Cyber Threat Analysis, Cryptography, Digital Forensics, Data Structures and Algorithm</p>
+            <p><strong>Certifications</strong>: Minor degree in Financial Corporate Management</p>
+        </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects">
+        <h2>Projects</h2>
+
+        <div id="projectsCarousel" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner">
+
+                <!-- SLIDE 1 -->
+                <div class="carousel-item active">
+                    <div class="proj-cards-wrapper">
+
+                        <div class="proj-card">
+                            <h3>Vending Machine Application</h3>
+                            <ul>
+                                <li>Developed a web-based application for laboratory reservation for an institution</li>
+                                <li>Utilized MongoDB for database management and connectivity</li>
+                                <li>Implemented features for user authentication, reservation management, and interactive UI elements</li>
+                            </ul>
+                            <div class="proj-footer">
+                                <p>June 2024 - Sept 2024</p>
+                                <p><em>HTML, CSS, JavaScript, MongoDB</em></p>
+                            </div>
+                        </div>
+
+                        <div class="proj-card">
+                            <h3>Shopping App</h3>
+                            <ul>
+                                <li>Developed a web-based application for laboratory reservation for an institution</li>
+                                <li>Utilized MongoDB for database management and connectivity</li>
+                                <li>Implemented features for user authentication, reservation management, and interactive UI elements</li>
+                            </ul>
+                            <div class="proj-footer">
+                                <p>March 2023 - April 2023</p>
+                                <p><em>HTML, CSS, JavaScript, MongoDB</em></p>
+                            </div>
+                        </div>
+
+                        <div class="proj-card">
+                            <h3>Mastermind Game</h3>
+                            <ul>
+                                <li>Developed a web-based application for laboratory reservation for an institution</li>
+                                <li>Utilized MongoDB for database management and connectivity</li>
+                                <li>Implemented features for user authentication, reservation management, and interactive UI elements</li>
+                            </ul>
+                            <div class="proj-footer">
+                                <p>Feb 2024 - March 2024</p>
+                                <p><em>MySQL Workbench, Java</em></p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- END SLIDE 1 -->
+
+            </div>
+
+            <!-- CAROUSEL CONTROLS -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#projectsCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#projectsCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+    </section>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
