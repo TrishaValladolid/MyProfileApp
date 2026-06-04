@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Education</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <nav>
+        <a href="/">Back to Profile</a>
+    </nav>
+
+    <div class="add-edu-page">
+        <div class="edu-card" style="max-width: 600px; margin: 0 auto;">
+            <h3 style="margin-bottom: 24px;">Add Education</h3>
+
+            <form th:action="@{/education/save}" method="post">
+
+                <div class="form-group">
+                    <label>School Name</label>
+                    <input type="text" name="schoolName" placeholder="e.g. University of Santo Tomas" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" name="location" placeholder="e.g. Manila, Philippines" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Degree</label>
+                    <input type="text" name="degree" placeholder="e.g. Bachelor of Science" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Course</label>
+                    <input type="text" name="course" placeholder="e.g. Information Technology" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Years</label>
+                    <input type="text" name="years" placeholder="e.g. 2021 - 2025" required />
+                </div>
+
+                <div style="display: flex; gap: 12px; margin-top: 10px;">
+                    <button type="submit" class="add-btn">Save</button>
+                    <a href="/" class="add-btn" style="background-color: #ffffff; color: #748f8d; border: 1px solid #748f8d;">Cancel</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

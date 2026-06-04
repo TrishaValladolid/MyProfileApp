@@ -16,7 +16,7 @@ nav {
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #ffffff;
+    background-color: #748f8d;
     padding: 20px 60px;
     display: flex;
     gap: 60px;
@@ -25,7 +25,7 @@ nav {
 }
 
 nav a {
-    color: #222222;
+    color: #e0e0e0;
     text-decoration: none;
     font-size: 16px;
     font-weight: bold;
@@ -39,9 +39,14 @@ nav a:hover {
 
 
 /* HERO SECTION */
+
 #hero {
     margin-top: 65px;
-    background-color: #748f8d;
+    background-image: url('/images/karu.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
     padding: 80px 60px;
     min-height: 45vh;
     display: flex;
@@ -191,4 +196,73 @@ nav a:hover {
 .carousel-control-next {
     width: 40px;
     filter: invert(1);
+}
+
+
+/* Education section header row (title + button side by side) */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+/* Resets the h2 margin since section-header handles spacing now */
+.section-header h2 {
+    margin-bottom: 0;
+}
+
+/* Add button used in both profile and addEducation pages */
+.add-btn {
+    padding: 10px 24px;
+    background-color: #748f8d;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    font-family: Calibri, sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.add-btn:hover {
+    background-color: #5f7a78;
+    color: #ffffff;
+}
+
+/* Add Education form page wrapper */
+.add-edu-page {
+    margin-top: 100px;
+    padding: 60px;
+    background-color: #e9ebff;
+    min-height: 100vh;
+}
+
+/* Form field groups */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #444444;
+    margin-bottom: 6px;
+}
+
+.form-group input {
+    padding: 10px 14px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 15px;
+    font-family: Calibri, sans-serif;
+    color: #222222;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #748f8d;
 }

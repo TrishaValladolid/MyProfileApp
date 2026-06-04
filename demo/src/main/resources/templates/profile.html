@@ -18,47 +18,61 @@
 
     <!-- ABOUT ME HERO -->
     <section id="hero">
-        <h1 th:text="'Hello, I am ' + ${firstName} + '!'">Hello!</h1>
-        <h1>I am a Student, Java Developer, and Cat lover.</h1>
+        <h1 th:text="'Hello, I am ' + ${person.firstName} + '!'">Hello, I am Trisha Laine!</h1>
+        <h1 th:text="${person.shortIntroduction}">I am a Student, Java Developer, and Cat lover.</h1>
     </section>
 
     <!-- ABOUT ME DETAILS -->
     <section id="about">
         <div class="about-left">
-            <p><strong>Name:</strong> Trisha Valladolid</p>
-            <p><strong>School:</strong> De La Salle University</p>
-            <p><strong>Location:</strong> Metro Manila, Philippines</p>
+            <p><strong>Name:</strong> <span th:text="${person.firstName} + ' ' + ${person.lastName}">Trisha Laine Valladolid</span></p>
+            <p><strong>Location:</strong> <span th:text="${person.location}">Metro Manila</span></p>
             <br>
-            <p><strong>Phone:</strong> 09691203789</p>
-            <p><strong>Email:</strong> trishvalla@gmail.com</p>
+            <p><strong>Phone:</strong> <span th:text="${person.phone}">0969 1203 789</span></p>
+            <p><strong>Email:</strong> <span th:text="${person.email}">trishvalla@mail.com</span></p>
         </div>
         <div class="about-right">
-            <p>Trisha is a Java Developer living in the bustling Metro Manila. Her goal is
-            to collaborate with talented people and create meaningful technologies
-            with them. In her free time, you can find her cooking and watching sitcoms,
-            particularly Modern Family.</p>
+            <p th:text="${person.firstName} + ' ' + ${person.longIntroduction}">Trisha is a Java Developer living in the bustling Metro Manila.</p>
         </div>
     </section>
 
     <!-- EDUCATION SECTION -->
     <section id="education">
-        <h2>Education</h2>
-
-        <div class="edu-card">
-            <h3>St. Paul College Pasig</h3>
-            <p class="edu-subtitle"><em>Senior High School | 2020-2022</em></p>
-            <p><strong>Course</strong>: Accountancy, Business, and Management</p>
-            <p><strong>Coursework</strong>: Fundamentals of Accounting, Principles of Marketing Organization and Management, Business Mathematics, Applied Economics, Entrepreneurship, Business Finance</p>
-            <p><strong>Certifications</strong>: Dance Varsity Achievement Award, Loyalty Award, Academic Excellence Award, Completion of Advanced Placement (AP) Program in Psychology</p>
+        <!-- Section header with Add button on top right -->
+        <div class="section-header">
+            <h2>Education</h2>
+            <a href="/education/add" class="add-btn">+ Add Education</a>
         </div>
 
-        <div class="edu-card">
-            <h3>De La Salle University</h3>
-            <p class="edu-subtitle"><em>Bachelor of Science | 2020-2022</em></p>
-            <p><strong>Major</strong>: Computer Science specialization in Network Information Security</p>
-            <p><strong>Coursework</strong>: Network Security Vulnerability Assessment and Management, Cybersecurity Operations, Cyber Threat Analysis, Cryptography, Digital Forensics, Data Structures and Algorithm</p>
-            <p><strong>Certifications</strong>: Minor degree in Financial Corporate Management</p>
+        <div class="edu-card" th:each="edu : ${educationList}">
+            <h3 th:text="${edu.schoolName}">School Name</h3>
+            <p class="edu-subtitle">
+                <em th:text="${edu.degree + ' | ' + edu.years}">Degree | Years</em>
+            </p>
+            <p><strong>Course</strong>: <span th:text="${edu.course}">Course</span></p>
+            <p><strong>Location</strong>: <span th:text="${edu.location}">Location</span></p>
+
+            <!-- COURSEWORK -->
+            <p>
+                <strong>Coursework</strong>:
+                <th:block th:each="detail, iterStat : ${educationDetailList}">
+                    <span th:if="${detail.educationId == edu.educationId and detail.coursework == 'Coursework'}"
+                          th:text="${detail.description + ', '}">
+                    </span>
+                </th:block>
+            </p>
+
+            <!-- CERTIFICATIONS -->
+            <p>
+                <strong>Certifications</strong>:
+                <th:block th:each="detail, iterStat : ${educationDetailList}">
+                    <span th:if="${detail.educationId == edu.educationId and detail.coursework == 'Certification'}"
+                          th:text="${detail.description + ', '}">
+                    </span>
+                </th:block>
+            </p>
         </div>
+
     </section>
 
     <!-- PROJECTS SECTION -->
@@ -68,52 +82,25 @@
         <div id="projectsCarousel" class="carousel slide" data-bs-ride="false">
             <div class="carousel-inner">
 
-                <!-- SLIDE 1 -->
-                <div class="carousel-item active">
+                <div th:each="chunk, chunkStat : ${projectChunks}"
+                     th:class="${chunkStat.first} ? 'carousel-item active' : 'carousel-item'">
                     <div class="proj-cards-wrapper">
-
-                        <div class="proj-card">
-                            <h3>Vending Machine Application</h3>
+                        <div class="proj-card" th:each="proj : ${chunk}">
+                            <h3 th:text="${proj.projectName}">Project Name</h3>
                             <ul>
-                                <li>Developed a web-based application for laboratory reservation for an institution</li>
-                                <li>Utilized MongoDB for database management and connectivity</li>
-                                <li>Implemented features for user authentication, reservation management, and interactive UI elements</li>
+                                <th:block th:each="detail : ${projectDetailList}">
+                                    <li th:if="${detail.projectId == proj.projectId}"
+                                        th:text="${detail.description}">
+                                    </li>
+                                </th:block>
                             </ul>
                             <div class="proj-footer">
-                                <p>June 2024 - Sept 2024</p>
-                                <p><em>HTML, CSS, JavaScript, MongoDB</em></p>
+                                <p th:text="${proj.startDate + ' - ' + proj.endDate}">Date</p>
+                                <p><em th:text="${proj.technologies}">Technologies</em></p>
                             </div>
                         </div>
-
-                        <div class="proj-card">
-                            <h3>Shopping App</h3>
-                            <ul>
-                                <li>Developed a web-based application for laboratory reservation for an institution</li>
-                                <li>Utilized MongoDB for database management and connectivity</li>
-                                <li>Implemented features for user authentication, reservation management, and interactive UI elements</li>
-                            </ul>
-                            <div class="proj-footer">
-                                <p>March 2023 - April 2023</p>
-                                <p><em>HTML, CSS, JavaScript, MongoDB</em></p>
-                            </div>
-                        </div>
-
-                        <div class="proj-card">
-                            <h3>Mastermind Game</h3>
-                            <ul>
-                                <li>Developed a web-based application for laboratory reservation for an institution</li>
-                                <li>Utilized MongoDB for database management and connectivity</li>
-                                <li>Implemented features for user authentication, reservation management, and interactive UI elements</li>
-                            </ul>
-                            <div class="proj-footer">
-                                <p>Feb 2024 - March 2024</p>
-                                <p><em>MySQL Workbench, Java</em></p>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
-                <!-- END SLIDE 1 -->
 
             </div>
 
@@ -126,8 +113,134 @@
             </button>
         </div>
     </section>
-    
+
+    <!-- EXPERIENCE SECTION -->
+    <section id="experience" style="background-color: #ffeffe; padding: 60px; min-height: 100vh;">
+        <h2 style="text-align: center; font-size: 28px; font-weight: normal; color: #222222; margin-bottom: 40px;">Experience</h2>
+
+        <div class="edu-card" th:each="exp : ${experienceList}">
+            <h3 th:text="${exp.organization}">Organization</h3>
+            <p class="edu-subtitle">
+                <em th:text="${exp.role + ' | ' + exp.location + ' | ' + exp.years}">Role | Location | Years</em>
+            </p>
+            <ul style="margin-top: 10px; padding-left: 20px;">
+                <th:block th:each="detail : ${experienceDetailList}">
+                    <li th:if="${detail.experienceId == exp.experienceId}"
+                        th:text="${detail.description}"
+                        style="font-size: 15px; color: #222222; line-height: 1.7; margin-bottom: 4px;">
+                    </li>
+                </th:block>
+            </ul>
+        </div>
+
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section id="skills" style="background-color: #f3f0d8; min-height: 100vh; padding: 60px 40px;">
+        <h2 style="text-align: center; font-size: 28px; font-weight: normal; color: #222222; margin-bottom: 40px;">Skills</h2>
+
+        <div style="display: flex; gap: 50px; justify-content: center; align-items: flex-start;">
+
+            <!-- Certificate Panel -->
+            <div style="width: 40%;">
+                <button style="padding: 12px 40px; border: 1px solid #888; background: white; cursor: pointer; margin-bottom: 20px; font-family: Calibri, sans-serif; font-size: 15px;">Certificates:</button>
+                <img src="/images/cyber5wcertificate.jpg" alt="Certificate" style="width: 100%; border: 1px solid #ccc;">
+            </div>
+
+            <!-- Chart Panel -->
+            <div style="width: 60%;">
+                <div style="height: 500px;">
+                    <canvas id="skillsChart"></canvas>
+                </div>
+                <!-- Legend -->
+                <div style="display: flex; gap: 24px; justify-content: center; margin-top: 16px; flex-wrap: wrap;">
+                    <span style="display: flex; align-items: center; gap: 6px; font-size: 14px; color: #222;">
+                        <span style="width: 14px; height: 14px; background: #A8DADC; display: inline-block; border-radius: 2px; border: 1px solid #000;"></span> Expert
+                    </span>
+                    <span style="display: flex; align-items: center; gap: 6px; font-size: 14px; color: #222;">
+                        <span style="width: 14px; height: 14px; background: #FFD6A5; display: inline-block; border-radius: 2px; border: 1px solid #000;"></span> Advanced
+                    </span>
+                    <span style="display: flex; align-items: center; gap: 6px; font-size: 14px; color: #222;">
+                        <span style="width: 14px; height: 14px; background: #BDB2FF; display: inline-block; border-radius: 2px; border: 1px solid #000;"></span> Intermediate
+                    </span>
+                    <span style="display: flex; align-items: center; gap: 6px; font-size: 14px; color: #222;">
+                        <span style="width: 14px; height: 14px; background: #FFC6C7; display: inline-block; border-radius: 2px; border: 1px solid #000;"></span> Novice
+                    </span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script th:inline="javascript">
+        const skillNames = /*[[${skillList.![skill]}]]*/ [];
+        const skillLevels = /*[[${skillList.![levelValue]}]]*/ [];
+        const skillLevelLabels = /*[[${skillList.![level]}]]*/ [];
+
+        const colorMap = {
+            'Expert':       '#A8DADC',
+            'Advanced':     '#FFD6A5',
+            'Intermediate': '#BDB2FF',
+            'Novice':       '#FFC6C7'
+        };
+
+        const barColors = skillLevelLabels.map(level => colorMap[level] || '#A8DADC');
+
+        new Chart(document.getElementById('skillsChart'), {
+            type: 'bar',
+            data: {
+                labels: skillNames,
+                datasets: [{
+                    label: 'Skill Level',
+                    data: skillLevels,
+                    backgroundColor: barColors,
+                    borderColor: 'rgba(0,0,0,0.9)',
+                    borderWidth: 1,
+                    borderRadius: 0,
+                    categoryPercentage: 1,
+                    barPercentage: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return skillLevelLabels[context.dataIndex];
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        min: 0,
+                        max: 4,
+                        ticks: {
+                            stepSize: 1,
+                            callback: function(value) {
+                                const levels = {
+                                    1: 'Novice',
+                                    2: 'Intermediate',
+                                    3: 'Advanced',
+                                    4: 'Expert'
+                                };
+                                return levels[value] || '';
+                            }
+                        }
+                    },
+                    y: {
+                        ticks: { maxRotation: 0, minRotation: 0 }
+                    }
+                }
+            }
+        });
+    </script>
 
 </body>
 </html>
