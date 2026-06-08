@@ -4,52 +4,87 @@
     <meta charset="UTF-8">
     <title>Add Education</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <body>
 
     <nav>
-        <a href="/">Back to Profile</a>
+        <a href="/#about">About Me</a>
+        <a href="/#education">Education</a>
+        <a href="/#projects">Projects</a>
+        <a href="/#experience">Experience</a>
+        <a href="/#skills">Skills</a>
     </nav>
 
     <div class="add-edu-page">
-        <div class="edu-card" style="max-width: 600px; margin: 0 auto;">
-            <h3 style="margin-bottom: 24px;">Add Education</h3>
+        <h2 style="font-size: 28px; font-weight: normal; color: #222222; margin-bottom: 30px;">Add Education</h2>
 
-            <form th:action="@{/education/save}" method="post">
-
+        <form action="/education/save" method="post">
+            <div class="form-group">
+                <label>School Name</label>
+                <input type="text" name="schoolName" placeholder="e.g. University of Santo Tomas" required />
+            </div>
+            <div class="form-group">
+                <label>Location</label>
+                <input type="text" name="location" placeholder="e.g. Manila" required />
+            </div>
+            <div class="form-group">
+                <label>Degree</label>
+                <input type="text" name="degree" placeholder="e.g. Bachelor of Science" required />
+            </div>
+            <div class="form-group">
                 <div class="form-group">
-                    <label>School Name</label>
-                    <input type="text" name="schoolName" placeholder="e.g. University of Santo Tomas" required />
+                    <label>Coursework / Details</label>
+                    <div id="coursework-container">
+                        <textarea name="coursework" placeholder="e.g. Data Structures, Algorithms" rows="2"></textarea>
+                    </div>
+                    <button type="button" onclick="addCourseworkField()" class="add-btn" style="background-color: #aaa; margin-top: 4px;">+ Add Another</button>
                 </div>
 
                 <div class="form-group">
-                    <label>Location</label>
-                    <input type="text" name="location" placeholder="e.g. Manila, Philippines" required />
-                </div>
-
-                <div class="form-group">
-                    <label>Degree</label>
-                    <input type="text" name="degree" placeholder="e.g. Bachelor of Science" required />
-                </div>
-
-                <div class="form-group">
-                    <label>Course</label>
-                    <input type="text" name="course" placeholder="e.g. Information Technology" required />
-                </div>
-
-                <div class="form-group">
-                    <label>Years</label>
-                    <input type="text" name="years" placeholder="e.g. 2021 - 2025" required />
+                    <label>Certifications</label>
+                    <div id="certifications-container">
+                        <textarea name="certifications" placeholder="e.g. AWS Certified Developer" rows="2"></textarea>
+                    </div>
+                    <button type="button" onclick="addCertificationField()" class="add-btn" style="background-color: #aaa; margin-top: 4px;">+ Add Another</button>
                 </div>
 
                 <div style="display: flex; gap: 12px; margin-top: 10px;">
-                    <button type="submit" class="add-btn">Save</button>
-                    <a href="/" class="add-btn" style="background-color: #ffffff; color: #748f8d; border: 1px solid #748f8d;">Cancel</a>
-                </div>
+            </div>
+            <div class="form-group">
+                <label>Years</label>
+                <input type="text" name="years" placeholder="e.g. 2021 - 2025" required />
+            </div>
 
-            </form>
-        </div>
+
+    <script>
+        function addCourseworkField() {
+            const container = document.getElementById('coursework-container');
+            const ta = document.createElement('textarea');
+            ta.name = 'coursework';
+            ta.rows = 2;
+            ta.placeholder = 'Add another coursework...';
+            ta.style.marginBottom = '8px';
+            container.appendChild(ta);
+        }
+
+        function addCertificationField() {
+            const container = document.getElementById('certifications-container');
+            const ta = document.createElement('textarea');
+            ta.name = 'certifications';
+            ta.rows = 2;
+            ta.placeholder = 'Add another certification...';
+            ta.style.marginBottom = '8px';
+            container.appendChild(ta);
+        }
+    </script>
+            <div style="display: flex; gap: 12px; margin-top: 10px;">
+                <button type="submit" class="add-btn">Save Education</button>
+                <a href="/" class="add-btn" style="background-color: #aaa;">Cancel</a>
+            </div>
+        </form>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

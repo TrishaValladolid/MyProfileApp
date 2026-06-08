@@ -50,4 +50,13 @@ public class EducationDAO {
             e.getYears()
         );
     }
+
+    public int getLastInsertedEducationId() {
+        return jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+    }
+
+    public void insertEducationDetail(int educationId, String coursework, String description) {
+        String sql = "INSERT INTO educationDetails (EducationID, Coursework, Description) VALUES (?, ?, ?)";
+        jdbcTemplate.update(sql, educationId, coursework, description);
+    }
 }

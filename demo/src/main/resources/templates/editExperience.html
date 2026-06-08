@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Experience</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+    <nav>
+        <a href="/#about">About Me</a>
+        <a href="/#education">Education</a>
+        <a href="/#projects">Projects</a>
+        <a href="/#experience">Experience</a>
+        <a href="/#skills">Skills</a>
+    </nav>
+
+    <div class="add-edu-page" style="background-color: #ffeffe;">
+        <h2 style="font-size: 28px; font-weight: normal; color: #222222; margin-bottom: 30px;">Edit Experience</h2>
+
+        <form action="/experience/update" method="post">
+            <input type="hidden" name="experienceId" th:value="${experience.experienceId}" />
+
+            <div class="form-group">
+                <label>Organization</label>
+                <input type="text" name="organization" th:value="${experience.organization}" required />
+            </div>
+            <div class="form-group">
+                <label>Location</label>
+                <input type="text" name="location" th:value="${experience.location}" required />
+            </div>
+            <div class="form-group">
+                <label>Role</label>
+                <input type="text" name="role" th:value="${experience.role}" required />
+            </div>
+            <div class="form-group">
+                <label>Years</label>
+                <input type="text" name="years" th:value="${experience.years}" required />
+            </div>
+
+            <div class="form-group">
+                <label>Description / Details</label>
+                <div id="descriptions-container">
+                    <th:block th:each="detail : ${experienceDetails}">
+                        <input type="text" name="descriptions" th:value="${detail.description}" style="margin-bottom: 8px;" />
+                    </th:block>
+                </div>
+                <button type="button" onclick="addDescriptionField()" class="add-btn" style="background-color: #aaa; margin-top: 4px;">+ Add Another</button>
+            </div>
+
+            <div style="display: flex; gap: 12px; margin-top: 10px;">
+                <button type="submit" class="add-btn">Update Experience</button>
+                <a href="/" class="add-btn" style="background-color: #aaa;">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function addDescriptionField() {
+            const container = document.getElementById('descriptions-container');
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'descriptions';
+            input.placeholder = 'Add another detail...';
+            input.style.marginBottom = '8px';
+            container.appendChild(input);
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

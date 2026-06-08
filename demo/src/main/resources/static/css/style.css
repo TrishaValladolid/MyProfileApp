@@ -21,7 +21,6 @@ nav {
     display: flex;
     gap: 60px;
     z-index: 1000;
-    border-bottom: 1px solid #e0e0e0;
 }
 
 nav a {
@@ -31,24 +30,17 @@ nav a {
     font-weight: bold;
 }
 
-nav a:hover {
-    color: #748f8d;
-    /*color: #8285a4;*/
-    
-}
-
-
 /* HERO SECTION */
 
 #hero {
-    margin-top: 65px;
+    margin-top: 64px;
     background-image: url('/images/karu.jpeg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 
     padding: 80px 60px;
-    min-height: 45vh;
+    min-height: 60vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -56,7 +48,7 @@ nav a:hover {
 
 #hero h1 {
     font-size: 36px;
-    color: #ffffff;
+    color: #000000;
     font-weight: normal;
     line-height: 1.6;
 }
@@ -198,6 +190,47 @@ nav a:hover {
     filter: invert(1);
 }
 
+/* PROJECTS CAROUSEL - arrows outside the cards */
+.carousel-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.carousel-arrow {
+    background: none;
+    border: none;
+    font-size: 48px;
+    color: #748f8d;
+    cursor: pointer;
+    padding: 0 8px;
+    line-height: 1;
+    flex-shrink: 0;
+    user-select: none;
+}
+
+.carousel-arrow:hover {
+    color: #5f7a78;
+}
+
+/* detail input fields - full width like other fields */
+.detail-input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 15px;
+    font-family: Calibri, sans-serif;
+    color: #222222;
+    box-sizing: border-box;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.detail-input:focus {
+    outline: none;
+    border-color: #748f8d;
+}
 
 /* Education section header row (title + button side by side) */
 .section-header {
@@ -224,6 +257,8 @@ nav a:hover {
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
+    align-self: flex-start;
+    width: auto;
 }
 
 .add-btn:hover {
@@ -233,7 +268,7 @@ nav a:hover {
 
 /* Add Education form page wrapper */
 .add-edu-page {
-    margin-top: 100px;
+    margin-top: 50px;
     padding: 60px;
     background-color: #e9ebff;
     min-height: 100vh;
@@ -260,9 +295,26 @@ nav a:hover {
     font-size: 15px;
     font-family: Calibri, sans-serif;
     color: #222222;
+    width: 100%;
+}
+
+.form-group textarea {
+    padding: 10px 14px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 15px;
+    font-family: Calibri, sans-serif;
+    color: #222222;
+    resize: vertical;
+    width: 100%;
 }
 
 .form-group input:focus {
+    outline: none;
+    border-color: #748f8d;
+}
+
+.form-group textarea:focus {
     outline: none;
     border-color: #748f8d;
 }
