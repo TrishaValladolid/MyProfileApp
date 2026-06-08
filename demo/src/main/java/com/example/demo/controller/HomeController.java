@@ -208,4 +208,31 @@ public class HomeController {
         }
         return "redirect:/";
     }
+
+    // GET - shows the Add Skill form page
+    @GetMapping("/skill/add")
+    public String showAddSkillForm() {
+        return "addSkill";
+    }
+
+    // POST - receives the form data and saves the skill to the DB
+    @PostMapping("/skill/save")
+    public String saveSkill(@ModelAttribute Skill skill) {
+        skillDAO.insertSkill(skill);
+        return "redirect:/";
+    }
+
+    // GET - shows the Edit Skill form page pre-filled with existing data
+    @GetMapping("/skill/edit/{id}")
+    public String showEditSkillForm(@PathVariable("id") int id, Model model) {
+        model.addAttribute("skill", skillDAO.getSkillById(id));
+        return "editSkill";
+    }
+
+    // POST - updates the skill in the DB
+    @PostMapping("/skill/update")
+    public String updateSkill(@ModelAttribute Skill skill) {
+        skillDAO.updateSkill(skill);
+        return "redirect:/";
+    }
 }

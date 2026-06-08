@@ -16,8 +16,8 @@
         <a href="/#skills">Skills</a>
     </nav>
 
-    <div class="add-edu-page" style="background-color: #fff6e9;">
-        <h2 style="font-size: 28px; font-weight: normal; color: #222222; margin-bottom: 30px;">Add Project</h2>
+    <div class="add-edu-page page-project">
+        <h2>Add Project</h2>
 
         <form action="/project/save" method="post">
             <div class="form-group">
@@ -40,12 +40,12 @@
             <div class="form-group">
                 <label>Description / Details</label>
                 <div id="descriptions-container">
-                    <textarea name="descriptions" placeholder="e.g. Built REST API with Spring Boot" rows="2" style="margin-bottom: 8px;"></textarea>
+                    <textarea name="descriptions" placeholder="e.g. Built REST API with Spring Boot" rows="2" class="detail-input"></textarea>
                 </div>
-                <button type="button" onclick="addDescriptionField()" class="add-btn" style="background-color: #aaa; margin-top: 4px;">+ Add Another</button>
+                    <button type="button" onclick="addDescriptionField()" class="add-btn" style="margin-top: 4px;">➕</button>
             </div>
 
-            <div style="display: flex; gap: 12px; margin-top: 10px;">
+            <div class="form-actions">
                 <button type="submit" class="add-btn">Save Project</button>
                 <a href="/" class="add-btn" style="background-color: #aaa;">Cancel</a>
             </div>
@@ -59,7 +59,7 @@
             ta.name = 'descriptions';
             ta.rows = 2;
             ta.placeholder = 'Add another detail...';
-            ta.style.marginBottom = '8px';
+            ta.className = 'detail-input';
             container.appendChild(ta);
         }
     </script>

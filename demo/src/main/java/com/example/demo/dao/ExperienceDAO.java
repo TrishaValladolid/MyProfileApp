@@ -72,7 +72,7 @@ public class ExperienceDAO {
     }
 
     public int getLastInsertedExperienceId() {
-        return jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+        return jdbcTemplate.queryForObject("SELECT @@IDENTITY", Integer.class);
     }
 
     public void insertExperienceDetail(int experienceId, String description) {

@@ -52,7 +52,7 @@ public class EducationDAO {
     }
 
     public int getLastInsertedEducationId() {
-        return jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+        return jdbcTemplate.queryForObject("SELECT @@IDENTITY", Integer.class);
     }
 
     public void insertEducationDetail(int educationId, String coursework, String description) {

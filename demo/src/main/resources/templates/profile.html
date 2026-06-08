@@ -5,6 +5,8 @@
     <title>Trisha Laine Valladolid</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 </head>
 <body>
 
@@ -18,32 +20,35 @@
 
     <!-- HERO -->
     <section id="hero">
-        <h1 th:text="'Hello, I am ' + ${person.firstName} + '!'">Hello, I am Trisha Laine!</h1>
-        <h1 th:text="${person.shortIntroduction}">I am a Student, Java Developer, and Cat lover.</h1>
+        <h1 class="wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.2s"
+            th:text="'Hello, I am ' + ${person.firstName} + '!'">Hello, I am Trisha Laine!</h1>
+        <h1 class="wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.5s"
+            th:text="${person.shortIntroduction}">I am a Student, Java Developer, and Cat lover.</h1>
+        <a href="#about" class="discover-btn wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.8s">DISCOVER MORE</a>
     </section>
 
     <!-- ABOUT ME -->
     <section id="about">
-        <div class="about-left">
+        <div class="about-left wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.1s">
             <p><strong>Name:</strong> <span th:text="${person.firstName} + ' ' + ${person.lastName}">Trisha Laine Valladolid</span></p>
             <p><strong>Location:</strong> <span th:text="${person.location}">Metro Manila</span></p>
             <br>
             <p><strong>Phone:</strong> <span th:text="${person.phone}">0969 1203 789</span></p>
             <p><strong>Email:</strong> <span th:text="${person.email}">trishvalla@mail.com</span></p>
         </div>
-        <div class="about-right">
+        <div class="about-right wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.3s">
             <p th:text="${person.firstName} + ' ' + ${person.longIntroduction}">Trisha is a Java Developer living in the bustling Metro Manila.</p>
         </div>
     </section>
 
     <!-- EDUCATION -->
     <section id="education">
-        <div class="section-header">
+        <div class="section-header wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.1s">
             <h2>Education</h2>
-            <a href="/education/add" class="add-btn">+ Add Education</a>
+            <a href="/education/add" class="add-btn" title="Add Education">+</a>
         </div>
 
-        <div class="edu-card" th:each="edu : ${educationList}">
+        <div class="edu-card wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.2s" th:each="edu : ${educationList}">
             <h3 th:text="${edu.schoolName}">School Name</h3>
             <p class="edu-subtitle">
                 <em th:text="${edu.degree + ' | ' + edu.years}">Degree | Years</em>
@@ -57,27 +62,18 @@
                           th:text="${detail.description + ', '}"></span>
                 </th:block>
             </p>
-            <p>
-                <strong>Certifications</strong>:
-                <th:block th:each="detail : ${educationDetailList}">
-                    <span th:if="${detail.educationId == edu.educationId and detail.coursework == 'Certification'}"
-                          th:text="${detail.description + ', '}"></span>
-                </th:block>
-            </p>
         </div>
     </section>
 
     <!-- PROJECTS -->
     <section id="projects">
-        <div class="section-header">
+        <div class="section-header wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.1s">
             <h2>Projects</h2>
-            <a href="/project/add" class="add-btn">+ Add Project</a>
+            <a href="/project/add" class="add-btn" title="Add Project">+</a>
         </div>
 
-        <!-- carousel wrapper holds the arrows and the carousel together -->
-        <div class="carousel-wrapper">
-
-            <button class="carousel-arrow carousel-arrow-prev" type="button" data-bs-target="#projectsCarousel" data-bs-slide="prev">&#8249;</button>
+        <div class="carousel-wrapper wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.2s">
+            <button class="carousel-arrow" type="button" data-bs-target="#projectsCarousel" data-bs-slide="prev">&#8249;</button>
 
             <div id="projectsCarousel" class="carousel slide" data-bs-ride="false">
                 <div class="carousel-inner">
@@ -96,10 +92,9 @@
                                     <p th:text="${proj.startDate + ' - ' + proj.endDate}">Date</p>
                                     <p><em th:text="${proj.technologies}">Technologies</em></p>
                                 </div>
-                                <div style="margin-top: 12px; text-align: right;">
+                                <div class="proj-card-actions">
                                     <a th:href="@{/project/edit/{id}(id=${proj.projectId})}"
-                                       class="add-btn"
-                                       style="font-size: 13px; padding: 6px 16px;">Edit</a>
+                                       class="add-btn add-btn-sm" title="Edit"><i class="bi bi-pencil-square"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -107,19 +102,18 @@
                 </div>
             </div>
 
-            <button class="carousel-arrow carousel-arrow-next" type="button" data-bs-target="#projectsCarousel" data-bs-slide="next">&#8250;</button>
-
+            <button class="carousel-arrow" type="button" data-bs-target="#projectsCarousel" data-bs-slide="next">&#8250;</button>
         </div>
     </section>
 
     <!-- EXPERIENCE -->
-    <section id="experience" style="background-color: #ffeffe; padding: 60px; min-height: 100vh;">
-        <div class="section-header" style="margin-bottom: 40px;">
-            <h2 style="font-size: 28px; font-weight: normal; color: #222222; margin-bottom: 0;">Experience</h2>
-            <a href="/experience/add" class="add-btn">+ Add Experience</a>
+    <section id="experience">
+        <div class="section-header wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.1s">
+            <h2>Experience</h2>
+            <a href="/experience/add" class="add-btn" title="Add Experience">+</a>
         </div>
 
-        <div class="edu-card" th:each="exp : ${experienceList}">
+        <div class="edu-card wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.2s" th:each="exp : ${experienceList}">
             <h3 th:text="${exp.organization}">Organization</h3>
             <p class="edu-subtitle">
                 <em th:text="${exp.role + ' | ' + exp.location + ' | ' + exp.years}">Role | Location | Years</em>
@@ -128,53 +122,76 @@
                 <th:block th:each="detail : ${experienceDetailList}">
                     <li th:if="${detail.experienceId == exp.experienceId}"
                         th:text="${detail.description}"
-                        style="font-size: 15px; color: #222222; line-height: 1.7; margin-bottom: 4px;"></li>
+                        class="exp-detail-item"></li>
                 </th:block>
             </ul>
-            <div style="margin-top: 12px; text-align: right;">
-                <a th:href="@{/experience/edit/{id}(id=${exp.experienceId})}" class="add-btn" style="font-size: 13px; padding: 6px 16px;">Edit</a>
+            <div class="exp-card-actions">
+                <a th:href="@{/experience/edit/{id}(id=${exp.experienceId})}"
+                   class="add-btn add-btn-sm" title="Edit"><i class="bi bi-pencil-square"></i></a>
             </div>
         </div>
     </section>
 
     <!-- SKILLS -->
-    <section id="skills" style="background-color: #f3f0d8; min-height: 100vh; padding: 60px 40px;">
-        <h2 style="text-align: center; font-size: 28px; font-weight: normal; color: #222222; margin-bottom: 40px;">Skills</h2>
+    <section id="skills">
+        <div class="skills-top-row wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.1s">
+            <h2>Skills</h2>
+            <a href="/skill/add" class="add-btn" title="Add Skill">+</a>
+        </div>
 
-        <div style="display: flex; gap: 50px; justify-content: center; align-items: flex-start;">
-            <div style="width: 40%;">
-                <button style="padding: 12px 40px; border: 1px solid #888; background: white; cursor: pointer; margin-bottom: 20px; font-family: Calibri, sans-serif; font-size: 15px;">Certificates:</button>
-                <img src="/images/cyber5wcertificate.jpg" alt="Certificate" style="width: 100%; border: 1px solid #ccc;">
-            </div>
+        <!-- Category filter tabs -->
+        <div class="skills-filter wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.2s">
+            <button class="skills-filter-btn active" onclick="filterSkills('All', this)">All</button>
+            <button class="skills-filter-btn" onclick="filterSkills('Languages', this)">Languages</button>
+            <button class="skills-filter-btn" onclick="filterSkills('Tools', this)">Tools</button>
+            <button class="skills-filter-btn" onclick="filterSkills('Design', this)">Design</button>
+            <button class="skills-filter-btn" onclick="filterSkills('Databases', this)">Databases</button>
+        </div>
 
-            <div style="width: 60%;">
-                <div style="height: 500px;">
-                    <canvas id="skillsChart"></canvas>
+        <div class="skills-chart-container wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.3s">
+            <canvas id="skillsChart"></canvas>
+        </div>
+
+        <div class="skills-legend">
+            <span class="skills-legend-item">
+                <span class="legend-swatch expert"></span> Expert
+            </span>
+            <span class="skills-legend-item">
+                <span class="legend-swatch advanced"></span> Advanced
+            </span>
+            <span class="skills-legend-item">
+                <span class="legend-swatch intermediate"></span> Intermediate
+            </span>
+            <span class="skills-legend-item">
+                <span class="legend-swatch novice"></span> Novice
+            </span>
+        </div>
+
+        <!-- Edit buttons per skill -->
+        <div class="skills-edit-list wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.4s">
+            <th:block th:each="s : ${skillList}">
+                <div class="skills-edit-item">
+                    <span th:text="${s.skill + ' — ' + s.level + ' (' + s.category + ')'}">Skill</span>
+                    <a th:href="@{/skill/edit/{id}(id=${s.skillsId})}" class="add-btn add-btn-sm" title="Edit"><i class="bi bi-pencil-square"></i></a>
                 </div>
-                <div style="display: flex; gap: 24px; justify-content: center; margin-top: 16px; flex-wrap: wrap;">
-                    <span style="display: flex; align-items: center; gap: 6px; font-size: 14px; color: #222;">
-                        <span style="width: 14px; height: 14px; background: #A8DADC; display: inline-block; border-radius: 2px; border: 1px solid #000;"></span> Expert
-                    </span>
-                    <span style="display: flex; align-items: center; gap: 6px; font-size: 14px; color: #222;">
-                        <span style="width: 14px; height: 14px; background: #FFD6A5; display: inline-block; border-radius: 2px; border: 1px solid #000;"></span> Advanced
-                    </span>
-                    <span style="display: flex; align-items: center; gap: 6px; font-size: 14px; color: #222;">
-                        <span style="width: 14px; height: 14px; background: #BDB2FF; display: inline-block; border-radius: 2px; border: 1px solid #000;"></span> Intermediate
-                    </span>
-                    <span style="display: flex; align-items: center; gap: 6px; font-size: 14px; color: #222;">
-                        <span style="width: 14px; height: 14px; background: #FFC6C7; display: inline-block; border-radius: 2px; border: 1px solid #000;"></span> Novice
-                    </span>
-                </div>
-            </div>
+            </th:block>
         </div>
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script>
+        new WOW({
+            offset: 80,
+            mobile: true,
+            live: true,
+            animateClass: 'animated'
+        }).init();
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script th:inline="javascript">
-        const skillNames = /*[[${skillList.![skill]}]]*/ [];
-        const skillLevels = /*[[${skillList.![levelValue]}]]*/ [];
-        const skillLevelLabels = /*[[${skillList.![level]}]]*/ [];
+        // Full skill list passed from the server — each object has skill, level, levelValue, category
+        const allSkills = /*[[${skillList}]]*/ [];
 
         const colorMap = {
             'Expert':       '#A8DADC',
@@ -183,16 +200,24 @@
             'Novice':       '#FFC6C7'
         };
 
-        const barColors = skillLevelLabels.map(level => colorMap[level] || '#A8DADC');
+        function getChartData(skills) {
+            return {
+                labels: skills.map(s => s.skill),
+                data:   skills.map(s => s.levelValue),
+                colors: skills.map(s => colorMap[s.level] || '#A8DADC')
+            };
+        }
 
-        new Chart(document.getElementById('skillsChart'), {
+        const initial = getChartData(allSkills);
+
+        const chart = new Chart(document.getElementById('skillsChart'), {
             type: 'bar',
             data: {
-                labels: skillNames,
+                labels: initial.labels,
                 datasets: [{
                     label: 'Skill Level',
-                    data: skillLevels,
-                    backgroundColor: barColors,
+                    data: initial.data,
+                    backgroundColor: initial.colors,
                     borderColor: 'rgba(0,0,0,0.9)',
                     borderWidth: 1,
                     borderRadius: 0,
@@ -209,7 +234,9 @@
                     tooltip: {
                         callbacks: {
                             label: function(context) {
-                                return skillLevelLabels[context.dataIndex];
+                                const filtered = chart.data.labels;
+                                const skill = allSkills.find(s => s.skill === context.label);
+                                return skill ? skill.level : '';
                             }
                         }
                     }
@@ -232,7 +259,41 @@
                 }
             }
         });
+
+        function filterSkills(category, btn) {
+            // Update active tab styling
+            document.querySelectorAll('.skills-filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Filter skill list by category
+            const filtered = category === 'All'
+                ? allSkills
+                : allSkills.filter(s => s.category === category);
+
+            const { labels, data, colors } = getChartData(filtered);
+
+            chart.data.labels = labels;
+            chart.data.datasets[0].data = data;
+            chart.data.datasets[0].backgroundColor = colors;
+            chart.update();
+        }
     </script>
+
+    <!-- FOOTER -->
+    <footer class="wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.1s">
+        <p>Copyright &copy; 2026 Trisha Valladolid</p>
+        <div class="footer-icons">
+            <a href="https://linkedin.com/in/your-profile" target="_blank" title="LinkedIn">
+                <i class="bi bi-linkedin"></i>
+            </a>
+            <a href="https://github.com/your-username" target="_blank" title="GitHub">
+                <i class="bi bi-github"></i>
+            </a>
+            <a href="https://instagram.com/your-username" target="_blank" title="Instagram">
+                <i class="bi bi-instagram"></i>
+            </a>
+        </div>
+    </footer>
 
 </body>
 </html>

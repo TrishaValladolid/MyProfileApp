@@ -17,7 +17,7 @@
     </nav>
 
     <div class="add-edu-page">
-        <h2 style="font-size: 28px; font-weight: normal; color: #222222; margin-bottom: 30px;">Add Education</h2>
+        <h2>Add Education</h2>
 
         <form action="/education/save" method="post">
             <div class="form-group">
@@ -33,29 +33,27 @@
                 <input type="text" name="degree" placeholder="e.g. Bachelor of Science" required />
             </div>
             <div class="form-group">
-                <div class="form-group">
-                    <label>Coursework / Details</label>
-                    <div id="coursework-container">
-                        <textarea name="coursework" placeholder="e.g. Data Structures, Algorithms" rows="2"></textarea>
-                    </div>
-                    <button type="button" onclick="addCourseworkField()" class="add-btn" style="background-color: #aaa; margin-top: 4px;">+ Add Another</button>
-                </div>
-
-                <div class="form-group">
-                    <label>Certifications</label>
-                    <div id="certifications-container">
-                        <textarea name="certifications" placeholder="e.g. AWS Certified Developer" rows="2"></textarea>
-                    </div>
-                    <button type="button" onclick="addCertificationField()" class="add-btn" style="background-color: #aaa; margin-top: 4px;">+ Add Another</button>
-                </div>
-
-                <div style="display: flex; gap: 12px; margin-top: 10px;">
+                <label>Course</label>
+                <input type="text" name="course" placeholder="e.g. Computer Science" required />
             </div>
             <div class="form-group">
                 <label>Years</label>
                 <input type="text" name="years" placeholder="e.g. 2021 - 2025" required />
             </div>
+            <div class="form-group">
+                <label>Coursework / Details</label>
+                <div id="coursework-container">
+                    <textarea name="coursework" placeholder="e.g. Data Structures, Algorithms" rows="2"></textarea>
+                </div>
+                <button type="button" onclick="addCourseworkField()" class="add-btn" style="background-color: #aaa; margin-top: 4px;">+</button>
+            </div>
 
+            <div class="form-actions">
+                <button type="submit" class="add-btn">Save Education</button>
+                <a href="/" class="add-btn" style="background-color: #aaa;">Cancel</a>
+            </div>
+        </form>
+    </div>
 
     <script>
         function addCourseworkField() {
@@ -64,26 +62,10 @@
             ta.name = 'coursework';
             ta.rows = 2;
             ta.placeholder = 'Add another coursework...';
-            ta.style.marginBottom = '8px';
-            container.appendChild(ta);
-        }
-
-        function addCertificationField() {
-            const container = document.getElementById('certifications-container');
-            const ta = document.createElement('textarea');
-            ta.name = 'certifications';
-            ta.rows = 2;
-            ta.placeholder = 'Add another certification...';
-            ta.style.marginBottom = '8px';
+            ta.className = 'detail-input';
             container.appendChild(ta);
         }
     </script>
-            <div style="display: flex; gap: 12px; margin-top: 10px;">
-                <button type="submit" class="add-btn">Save Education</button>
-                <a href="/" class="add-btn" style="background-color: #aaa;">Cancel</a>
-            </div>
-        </form>
-    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

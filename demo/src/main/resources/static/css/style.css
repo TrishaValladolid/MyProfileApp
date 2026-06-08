@@ -6,11 +6,21 @@
     font-family: Calibri, sans-serif;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+/* WOW.js animation speed override */
+.wow {
+    animation-duration: 1.5s !important;
+}
+
 body {
     background-color: #ffffff;
 }
 
-/* NAV BAR */
+/* ─── NAV BAR ─────────────────────────────────────────────────────────────── */
+
 nav {
     position: fixed;
     top: 0;
@@ -30,17 +40,18 @@ nav a {
     font-weight: bold;
 }
 
-/* HERO SECTION */
+/* ─── HERO SECTION ────────────────────────────────────────────────────────── */
 
 #hero {
     margin-top: 64px;
-    background-image: url('/images/karu.jpeg');
+    background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.4)),
+                      url('/images/karu1.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
+    background-attachment: fixed;
     padding: 80px 60px;
-    min-height: 60vh;
+    min-height: calc(100vh - 64px);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -48,12 +59,33 @@ nav a {
 
 #hero h1 {
     font-size: 36px;
-    color: #000000;
+    color: #ffffff;
     font-weight: normal;
     line-height: 1.6;
 }
 
-/* ABOUT ME DETAILS SECTION */
+.discover-btn {
+    margin-top: 30px;
+    display: inline-block;
+    padding: 12px 32px;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    font-size: 15px;
+    font-family: Calibri, sans-serif;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.2s, color 0.2s;
+    align-self: flex-start;
+}
+
+.discover-btn:hover {
+    background-color: #ffffff;
+    color: #333333;
+}
+
+/* ─── ABOUT ME SECTION ────────────────────────────────────────────────────── */
+
 #about {
     padding: 60px;
     display: flex;
@@ -61,6 +93,8 @@ nav a {
     gap: 80px;
     min-height: 35vh;
     align-items: flex-start;
+    scroll-margin-top: 350px;
+
 }
 
 .about-left p {
@@ -77,7 +111,8 @@ nav a {
     max-width: 600px;
 }
 
-/* EDUCATION SECTION */
+/* ─── EDUCATION SECTION ───────────────────────────────────────────────────── */
+
 #education {
     background-color: #e9ebff;
     padding: 60px;
@@ -120,7 +155,8 @@ nav a {
     margin-bottom: 4px;
 }
 
-/* PROJECTS SECTION */
+/* ─── PROJECTS SECTION ────────────────────────────────────────────────────── */
+
 #projects {
     background-color: #fff6e9;
     padding: 60px;
@@ -184,13 +220,18 @@ nav a {
     margin-bottom: 2px;
 }
 
+.proj-card-actions {
+    margin-top: 12px;
+    text-align: right;
+}
+
+/* Carousel arrows outside the cards */
 .carousel-control-prev,
 .carousel-control-next {
     width: 40px;
     filter: invert(1);
 }
 
-/* PROJECTS CAROUSEL - arrows outside the cards */
 .carousel-wrapper {
     display: flex;
     align-items: center;
@@ -213,26 +254,141 @@ nav a {
     color: #5f7a78;
 }
 
-/* detail input fields - full width like other fields */
-.detail-input {
-    width: 100%;
-    padding: 10px 14px;
-    border: 1px solid #cccccc;
-    border-radius: 4px;
-    font-size: 15px;
-    font-family: Calibri, sans-serif;
+/* ─── EXPERIENCE SECTION ──────────────────────────────────────────────────── */
+
+#experience {
+    background-color: #ffeffe;
+    padding: 60px;
+    min-height: 100vh;
+}
+
+#experience h2 {
+    font-size: 28px;
+    font-weight: normal;
     color: #222222;
-    box-sizing: border-box;
-    margin-bottom: 8px;
-    display: block;
+    margin-bottom: 0;
 }
 
-.detail-input:focus {
-    outline: none;
-    border-color: #748f8d;
+.exp-detail-item {
+    font-size: 15px;
+    color: #222222;
+    line-height: 1.7;
+    margin-bottom: 4px;
 }
 
-/* Education section header row (title + button side by side) */
+.exp-card-actions {
+    margin-top: 12px;
+    text-align: right;
+}
+
+/* ─── SKILLS SECTION ──────────────────────────────────────────────────────── */
+
+#skills {
+    background-color: #f3f0d8;
+    min-height: 100vh;
+    padding: 60px 40px;
+}
+
+/* Title row: h2 centered, Add button on the right */
+.skills-top-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.skills-top-row h2 {
+    flex: 1;
+    text-align: center;
+    font-size: 28px;
+    font-weight: normal;
+    color: #222222;
+}
+
+/* Edit list below the chart */
+.skills-edit-list {
+    max-width: 800px;
+    margin: 30px auto 0;
+}
+
+.skills-edit-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #dddddd;
+    font-size: 15px;
+    color: #222222;
+}
+
+/* Category filter tabs */
+.skills-filter {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.skills-filter-btn {
+    padding: 8px 22px;
+    border: 1px solid #748f8d;
+    border-radius: 4px;
+    background-color: #ffffff;
+    color: #748f8d;
+    font-size: 14px;
+    font-family: Calibri, sans-serif;
+    cursor: pointer;
+    transition: background-color 0.15s, color 0.15s;
+}
+
+.skills-filter-btn:hover {
+    background-color: #748f8d;
+    color: #ffffff;
+}
+
+.skills-filter-btn.active {
+    background-color: #748f8d;
+    color: #ffffff;
+}
+
+.skills-chart-container {
+    height: 500px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.skills-legend {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    margin-top: 16px;
+    flex-wrap: wrap;
+}
+
+.skills-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: #222222;
+}
+
+.legend-swatch {
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    border-radius: 2px;
+    border: 1px solid #000000;
+}
+
+.legend-swatch.expert       { background: #A8DADC; }
+.legend-swatch.advanced     { background: #FFD6A5; }
+.legend-swatch.intermediate { background: #BDB2FF; }
+.legend-swatch.novice       { background: #FFC6C7; }
+
+/* ─── SHARED / REUSABLE ───────────────────────────────────────────────────── */
+
+/* Section header row: title + action button side by side */
 .section-header {
     display: flex;
     justify-content: space-between;
@@ -240,14 +396,18 @@ nav a {
     margin-bottom: 40px;
 }
 
-/* Resets the h2 margin since section-header handles spacing now */
 .section-header h2 {
+    flex: 1;
+    text-align: center;
     margin-bottom: 0;
+    font-size: 28px;
+    font-weight: normal;
+    color: #222222;
 }
 
-/* Add button used in both profile and addEducation pages */
+/* Primary action button (add, save, edit, update) */
 .add-btn {
-    padding: 10px 24px;
+    padding: 5px 13px;
     background-color: #748f8d;
     color: #ffffff;
     border: none;
@@ -266,12 +426,32 @@ nav a {
     color: #ffffff;
 }
 
-/* Add Education form page wrapper */
+/* Smaller variant used on card Edit buttons */
+.add-btn-sm {
+    font-size: 13px;
+    padding: 6px 16px;
+}
+
+/* ─── FORM PAGES (Add / Edit) ─────────────────────────────────────────────── */
+
+/* Page wrapper shared by addEducation, addProject, addExperience, editProject, editExperience */
 .add-edu-page {
     margin-top: 50px;
     padding: 60px;
     background-color: #e9ebff;
     min-height: 100vh;
+}
+
+/* Per-section background overrides */
+.add-edu-page.page-project    { background-color: #fff6e9; }
+.add-edu-page.page-experience { background-color: #ffeffe; }
+.add-edu-page.page-skills     { background-color: #f3f0d8; }
+
+.add-edu-page h2 {
+    font-size: 28px;
+    font-weight: normal;
+    color: #222222;
+    margin-bottom: 30px;
 }
 
 /* Form field groups */
@@ -309,12 +489,81 @@ nav a {
     width: 100%;
 }
 
-.form-group input:focus {
+.form-group select {
+    padding: 10px 14px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 15px;
+    font-family: Calibri, sans-serif;
+    color: #222222;
+    width: 100%;
+    background-color: #ffffff;
+}
+
+.form-group select:focus {
     outline: none;
     border-color: #748f8d;
 }
 
+.form-group input:focus,
 .form-group textarea:focus {
     outline: none;
     border-color: #748f8d;
+}
+
+/* Detail input fields inside dynamic lists */
+.detail-input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 15px;
+    font-family: Calibri, sans-serif;
+    color: #222222;
+    box-sizing: border-box;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.detail-input:focus {
+    outline: none;
+    border-color: #748f8d;
+}
+
+/* Row of form action buttons (Save / Cancel) */
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+/* ─── FOOTER ──────────────────────────────────────────────────────────────── */
+
+footer {
+    background-color: #333333;
+    padding: 30px 60px;
+    text-align: center;
+}
+
+footer p {
+    color: #cccccc;
+    font-size: 14px;
+    margin-bottom: 14px;
+}
+
+.footer-icons {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+}
+
+.footer-icons a {
+    color: #cccccc;
+    font-size: 22px;
+    text-decoration: none;
+    transition: color 0.15s;
+}
+
+.footer-icons a:hover {
+    color: #ffffff;
 }

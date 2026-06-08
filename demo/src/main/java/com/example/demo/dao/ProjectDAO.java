@@ -72,7 +72,7 @@ public class ProjectDAO {
     }
 
     public int getLastInsertedProjectId() {
-        return jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+        return jdbcTemplate.queryForObject("SELECT @@IDENTITY", Integer.class);
     }
 
     public void insertProjectDetail(int projectId, String description) {

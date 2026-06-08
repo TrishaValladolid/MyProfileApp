@@ -5,12 +5,14 @@ public class Skill {
     private String skill;
     private String level;
     private int levelValue;
+    private String category;
 
     // Getters
     public int getSkillsId() { return skillsId; }
     public String getSkill() { return skill; }
     public String getLevel() { return level; }
     public int getLevelValue() { return levelValue; }
+    public String getCategory() { return category; }
 
     // Setters
     public void setSkillsId(int skillsId) { this.skillsId = skillsId; }
@@ -24,4 +26,5 @@ public class Skill {
             default:             this.levelValue = 1; break;
         }
     }
+    public void setCategory(String category) { this.category = category; }
 }

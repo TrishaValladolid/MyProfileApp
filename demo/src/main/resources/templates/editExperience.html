@@ -16,8 +16,8 @@
         <a href="/#skills">Skills</a>
     </nav>
 
-    <div class="add-edu-page" style="background-color: #ffeffe;">
-        <h2 style="font-size: 28px; font-weight: normal; color: #222222; margin-bottom: 30px;">Edit Experience</h2>
+    <div class="add-edu-page page-experience">
+        <h2>Edit Experience</h2>
 
         <form action="/experience/update" method="post">
             <input type="hidden" name="experienceId" th:value="${experience.experienceId}" />
@@ -43,13 +43,13 @@
                 <label>Description / Details</label>
                 <div id="descriptions-container">
                     <th:block th:each="detail : ${experienceDetails}">
-                        <input type="text" name="descriptions" th:value="${detail.description}" style="margin-bottom: 8px;" />
+                        <input type="text" name="descriptions" th:value="${detail.description}" class="detail-input" />
                     </th:block>
                 </div>
-                <button type="button" onclick="addDescriptionField()" class="add-btn" style="background-color: #aaa; margin-top: 4px;">+ Add Another</button>
+                <button type="button" onclick="addDescriptionField()" class="add-btn" style="background-color: #aaa; margin-top: 4px;">+</button>
             </div>
 
-            <div style="display: flex; gap: 12px; margin-top: 10px;">
+            <div class="form-actions">
                 <button type="submit" class="add-btn">Update Experience</button>
                 <a href="/" class="add-btn" style="background-color: #aaa;">Cancel</a>
             </div>
@@ -63,7 +63,7 @@
             input.type = 'text';
             input.name = 'descriptions';
             input.placeholder = 'Add another detail...';
-            input.style.marginBottom = '8px';
+            input.className = 'detail-input';
             container.appendChild(input);
         }
     </script>

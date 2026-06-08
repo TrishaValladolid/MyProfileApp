@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Skill</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+    <nav>
+        <a href="/#about">About Me</a>
+        <a href="/#education">Education</a>
+        <a href="/#projects">Projects</a>
+        <a href="/#experience">Experience</a>
+        <a href="/#skills">Skills</a>
+    </nav>
+
+    <div class="add-edu-page page-skills">
+        <h2>Edit Skill</h2>
+
+        <form action="/skill/update" method="post">
+            <input type="hidden" name="skillsId" th:value="${skill.skillsId}" />
+
+            <div class="form-group">
+                <label>Skill</label>
+                <input type="text" name="skill" th:value="${skill.skill}" required />
+            </div>
+            <div class="form-group">
+                <label>Level</label>
+                <select name="level" required>
+                    <option value="Novice"       th:selected="${skill.level == 'Novice'}">Novice</option>
+                    <option value="Intermediate" th:selected="${skill.level == 'Intermediate'}">Intermediate</option>
+                    <option value="Advanced"     th:selected="${skill.level == 'Advanced'}">Advanced</option>
+                    <option value="Expert"       th:selected="${skill.level == 'Expert'}">Expert</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Category</label>
+                <select name="category" required>
+                    <option value="Languages" th:selected="${skill.category == 'Languages'}">Languages</option>
+                    <option value="Tools"     th:selected="${skill.category == 'Tools'}">Tools</option>
+                    <option value="Design"    th:selected="${skill.category == 'Design'}">Design</option>
+                    <option value="Databases" th:selected="${skill.category == 'Databases'}">Databases</option>
+                </select>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="add-btn">Update Skill</button>
+                <a href="/" class="add-btn" style="background-color: #aaa;">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
