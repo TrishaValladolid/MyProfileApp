@@ -167,16 +167,43 @@
             </span>
         </div>
 
-        <!-- Edit buttons per skill -->
-        <div class="skills-edit-list wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.4s">
-            <th:block th:each="s : ${skillList}">
-                <div class="skills-edit-item">
-                    <span th:text="${s.skill + ' — ' + s.level + ' (' + s.category + ')'}">Skill</span>
-                    <a th:href="@{/skill/edit/{id}(id=${s.skillsId})}" class="add-btn add-btn-sm" title="Edit"><i class="bi bi-pencil-square"></i></a>
-                </div>
-            </th:block>
-        </div>
     </section>
+
+    <!-- SKILL EDIT MODAL -->
+    <div id="skillModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:2000; align-items:center; justify-content:center;">
+        <div style="background:#f3f0d8; border-radius:4px; padding:40px; width:100%; max-width:420px; position:relative;">
+            <h2 style="font-size:22px; font-weight:normal; color:#222; margin-bottom:24px;">Edit Skill</h2>
+            <form id="skillModalForm" th:action="@{/skill/update}" action="/skill/update" method="post">
+                <input type="hidden" name="skillsId" id="modal-skillsId" />
+                <div class="form-group">
+                    <label>Skill</label>
+                    <input type="text" name="skill" id="modal-skill" required />
+                </div>
+                <div class="form-group">
+                    <label>Level</label>
+                    <select name="level" id="modal-level" required>
+                        <option value="Novice">Novice</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                        <option value="Expert">Expert</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select name="category" id="modal-category" required>
+                        <option value="Languages">Languages</option>
+                        <option value="Tools">Tools</option>
+                        <option value="Design">Design</option>
+                        <option value="Databases">Databases</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="add-btn">Update Skill</button>
+                    <button type="button" class="add-btn" style="background-color:#aaa;" onclick="closeSkillModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
@@ -260,6 +287,34 @@
             }
         });
 
+        // Track currently displayed skills (after filter)
+        let currentSkills = allSkills;
+
+        // Click on bar opens edit modal
+        document.getElementById('skillsChart').addEventListener('click', function(evt) {
+            const points = chart.getElementsAtEventForMode(evt, 'nearest', { intersect: true }, true);
+            if (points.length === 0) return;
+            const index = points[0].index;
+            const label = chart.data.labels[index];
+            const skill = allSkills.find(s => s.skill === label);
+            if (!skill) return;
+            document.getElementById('modal-skillsId').value = skill.skillsId;
+            document.getElementById('modal-skill').value = skill.skill;
+            document.getElementById('modal-level').value = skill.level;
+            document.getElementById('modal-category').value = skill.category;
+            const modal = document.getElementById('skillModal');
+            modal.style.display = 'flex';
+        });
+
+        function closeSkillModal() {
+            document.getElementById('skillModal').style.display = 'none';
+        }
+
+        // Close modal on backdrop click
+        document.getElementById('skillModal').addEventListener('click', function(e) {
+            if (e.target === this) closeSkillModal();
+        });
+
         function filterSkills(category, btn) {
             // Update active tab styling
             document.querySelectorAll('.skills-filter-btn').forEach(b => b.classList.remove('active'));
@@ -279,17 +334,17 @@
         }
     </script>
 
-    <!-- FOOTER -->
+     <!-- FOOTER -->
     <footer class="wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.1s">
         <p>Copyright &copy; 2026 Trisha Valladolid</p>
         <div class="footer-icons">
-            <a href="https://linkedin.com/in/your-profile" target="_blank" title="LinkedIn">
+            <a href="https://www.linkedin.com/in/trisha-valladolid-430975260/" target="_blank" title="LinkedIn">
                 <i class="bi bi-linkedin"></i>
             </a>
-            <a href="https://github.com/your-username" target="_blank" title="GitHub">
+            <a href="https://github.com/TrishaValladolid/MyProfileApp" target="_blank" title="GitHub">
                 <i class="bi bi-github"></i>
             </a>
-            <a href="https://instagram.com/your-username" target="_blank" title="Instagram">
+            <a href="https://www.instagram.com/trisha.valla?igsh=OWVtaXhlb3l2dDgx&utm_source=qr" target="_blank" title="Instagram">
                 <i class="bi bi-instagram"></i>
             </a>
         </div>
