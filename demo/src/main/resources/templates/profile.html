@@ -16,6 +16,7 @@
         <a href="#projects">Projects</a>
         <a href="#experience">Experience</a>
         <a href="#skills">Skills</a>
+        <a href="/logout" class="nav-logout">Logout</a>
     </nav>
 
     <!-- HERO -->
@@ -45,7 +46,7 @@
     <section id="education">
         <div class="section-header wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.1s">
             <h2>Education</h2>
-            <a href="/education/add" class="add-btn" title="Add Education">+</a>
+            <a th:if="${isAdmin}" href="/education/add" class="add-btn" title="Add Education">+</a>
         </div>
 
         <div class="edu-card wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.2s" th:each="edu : ${educationList}">
@@ -69,7 +70,7 @@
     <section id="projects">
         <div class="section-header wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.1s">
             <h2>Projects</h2>
-            <a href="/project/add" class="add-btn" title="Add Project">+</a>
+            <a th:if="${isAdmin}" href="/project/add" class="add-btn" title="Add Project">+</a>
         </div>
 
         <div class="carousel-wrapper wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.2s">
@@ -92,7 +93,7 @@
                                     <p th:text="${proj.startDate + ' - ' + proj.endDate}">Date</p>
                                     <p><em th:text="${proj.technologies}">Technologies</em></p>
                                 </div>
-                                <div class="proj-card-actions">
+                                <div th:if="${isAdmin}" class="proj-card-actions">
                                     <a th:href="@{/project/edit/{id}(id=${proj.projectId})}"
                                        class="add-btn add-btn-sm" title="Edit"><i class="bi bi-pencil-square"></i></a>
                                 </div>
@@ -110,7 +111,7 @@
     <section id="experience">
         <div class="section-header wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.1s">
             <h2>Experience</h2>
-            <a href="/experience/add" class="add-btn" title="Add Experience">+</a>
+            <a th:if="${isAdmin}" href="/experience/add" class="add-btn" title="Add Experience">+</a>
         </div>
 
         <div class="edu-card wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.2s" th:each="exp : ${experienceList}">
@@ -118,14 +119,14 @@
             <p class="edu-subtitle">
                 <em th:text="${exp.role + ' | ' + exp.location + ' | ' + exp.years}">Role | Location | Years</em>
             </p>
-            <ul style="margin-top: 10px; padding-left: 20px;">
+            <ul class="exp-detail-list">
                 <th:block th:each="detail : ${experienceDetailList}">
                     <li th:if="${detail.experienceId == exp.experienceId}"
                         th:text="${detail.description}"
                         class="exp-detail-item"></li>
                 </th:block>
             </ul>
-            <div class="exp-card-actions">
+            <div th:if="${isAdmin}" class="exp-card-actions">
                 <a th:href="@{/experience/edit/{id}(id=${exp.experienceId})}"
                    class="add-btn add-btn-sm" title="Edit"><i class="bi bi-pencil-square"></i></a>
             </div>
@@ -136,10 +137,9 @@
     <section id="skills">
         <div class="skills-top-row wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.1s">
             <h2>Skills</h2>
-            <a href="/skill/add" class="add-btn" title="Add Skill">+</a>
+            <a th:if="${isAdmin}" href="/skill/add" class="add-btn" title="Add Skill">+</a>
         </div>
 
-        <!-- Category filter tabs -->
         <div class="skills-filter wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.2s">
             <button class="skills-filter-btn active" onclick="filterSkills('All', this)">All</button>
             <button class="skills-filter-btn" onclick="filterSkills('Languages', this)">Languages</button>
@@ -153,26 +153,17 @@
         </div>
 
         <div class="skills-legend">
-            <span class="skills-legend-item">
-                <span class="legend-swatch expert"></span> Expert
-            </span>
-            <span class="skills-legend-item">
-                <span class="legend-swatch advanced"></span> Advanced
-            </span>
-            <span class="skills-legend-item">
-                <span class="legend-swatch intermediate"></span> Intermediate
-            </span>
-            <span class="skills-legend-item">
-                <span class="legend-swatch novice"></span> Novice
-            </span>
+            <span class="skills-legend-item"><span class="legend-swatch expert"></span> Expert</span>
+            <span class="skills-legend-item"><span class="legend-swatch advanced"></span> Advanced</span>
+            <span class="skills-legend-item"><span class="legend-swatch intermediate"></span> Intermediate</span>
+            <span class="skills-legend-item"><span class="legend-swatch novice"></span> Novice</span>
         </div>
-
     </section>
 
-    <!-- SKILL EDIT MODAL -->
-    <div id="skillModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:2000; align-items:center; justify-content:center;">
-        <div style="background:#f3f0d8; border-radius:4px; padding:40px; width:100%; max-width:420px; position:relative;">
-            <h2 style="font-size:22px; font-weight:normal; color:#222; margin-bottom:24px;">Edit Skill</h2>
+    <!-- SKILL EDIT MODAL (admin only) -->
+    <div th:if="${isAdmin}" id="skillModal" class="skill-modal-overlay">
+        <div class="skill-modal-box">
+            <h2 class="skill-modal-title">Edit Skill</h2>
             <form id="skillModalForm" th:action="@{/skill/update}" action="/skill/update" method="post">
                 <input type="hidden" name="skillsId" id="modal-skillsId" />
                 <div class="form-group">
@@ -199,7 +190,7 @@
                 </div>
                 <div class="form-actions">
                     <button type="submit" class="add-btn">Update Skill</button>
-                    <button type="button" class="add-btn" style="background-color:#aaa;" onclick="closeSkillModal()">Cancel</button>
+                    <button type="button" class="add-btn add-btn-cancel" onclick="closeSkillModal()">Cancel</button>
                 </div>
             </form>
         </div>
@@ -208,17 +199,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
     <script>
-        new WOW({
-            offset: 80,
-            mobile: true,
-            live: true,
-            animateClass: 'animated'
-        }).init();
+        new WOW({ offset: 80, mobile: true, live: true, animateClass: 'animated' }).init();
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script th:inline="javascript">
-        // Full skill list passed from the server — each object has skill, level, levelValue, category
         const allSkills = /*[[${skillList}]]*/ [];
+        const isAdmin   = /*[[${isAdmin}]]*/ false;
 
         const colorMap = {
             'Expert':       '#A8DADC',
@@ -261,7 +247,6 @@
                     tooltip: {
                         callbacks: {
                             label: function(context) {
-                                const filtered = chart.data.labels;
                                 const skill = allSkills.find(s => s.skill === context.label);
                                 return skill ? skill.level : '';
                             }
@@ -270,8 +255,7 @@
                 },
                 scales: {
                     x: {
-                        min: 0,
-                        max: 4,
+                        min: 0, max: 4,
                         ticks: {
                             stepSize: 1,
                             callback: function(value) {
@@ -280,53 +264,40 @@
                             }
                         }
                     },
-                    y: {
-                        ticks: { maxRotation: 0, minRotation: 0 }
-                    }
+                    y: { ticks: { maxRotation: 0, minRotation: 0 } }
                 }
             }
         });
 
-        // Track currently displayed skills (after filter)
-        let currentSkills = allSkills;
-
-        // Click on bar opens edit modal
-        document.getElementById('skillsChart').addEventListener('click', function(evt) {
-            const points = chart.getElementsAtEventForMode(evt, 'nearest', { intersect: true }, true);
-            if (points.length === 0) return;
-            const index = points[0].index;
-            const label = chart.data.labels[index];
-            const skill = allSkills.find(s => s.skill === label);
-            if (!skill) return;
-            document.getElementById('modal-skillsId').value = skill.skillsId;
-            document.getElementById('modal-skill').value = skill.skill;
-            document.getElementById('modal-level').value = skill.level;
-            document.getElementById('modal-category').value = skill.category;
-            const modal = document.getElementById('skillModal');
-            modal.style.display = 'flex';
-        });
-
-        function closeSkillModal() {
-            document.getElementById('skillModal').style.display = 'none';
+        if (isAdmin) {
+            document.getElementById('skillsChart').addEventListener('click', function(evt) {
+                const points = chart.getElementsAtEventForMode(evt, 'nearest', { intersect: true }, true);
+                if (points.length === 0) return;
+                const label = chart.data.labels[points[0].index];
+                const skill = allSkills.find(s => s.skill === label);
+                if (!skill) return;
+                document.getElementById('modal-skillsId').value = skill.skillsId;
+                document.getElementById('modal-skill').value    = skill.skill;
+                document.getElementById('modal-level').value    = skill.level;
+                document.getElementById('modal-category').value = skill.category;
+                document.getElementById('skillModal').classList.add('active');
+            });
         }
 
-        // Close modal on backdrop click
-        document.getElementById('skillModal').addEventListener('click', function(e) {
-            if (e.target === this) closeSkillModal();
-        });
+        function closeSkillModal() {
+            document.getElementById('skillModal').classList.remove('active');
+        }
+
+        document.getElementById('skillModal') &&
+            document.getElementById('skillModal').addEventListener('click', function(e) {
+                if (e.target === this) closeSkillModal();
+            });
 
         function filterSkills(category, btn) {
-            // Update active tab styling
             document.querySelectorAll('.skills-filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-
-            // Filter skill list by category
-            const filtered = category === 'All'
-                ? allSkills
-                : allSkills.filter(s => s.category === category);
-
+            const filtered = category === 'All' ? allSkills : allSkills.filter(s => s.category === category);
             const { labels, data, colors } = getChartData(filtered);
-
             chart.data.labels = labels;
             chart.data.datasets[0].data = data;
             chart.data.datasets[0].backgroundColor = colors;
@@ -334,7 +305,7 @@
         }
     </script>
 
-     <!-- FOOTER -->
+    <!-- FOOTER -->
     <footer class="wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.1s">
         <p>Copyright &copy; 2026 Trisha Valladolid</p>
         <div class="footer-icons">

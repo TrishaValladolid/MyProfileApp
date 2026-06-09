@@ -537,6 +537,104 @@ nav a {
     margin-top: 10px;
 }
 
+/* ─── LANDING PAGE ────────────────────────────────────────────────────────── */
+
+.landing-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #748f8d;
+    gap: 16px;
+}
+
+.landing-page h1 {
+    font-size: 36px;
+    font-weight: normal;
+    color: #ffffff;
+}
+
+.landing-page p {
+    font-size: 16px;
+    color: #e0e0e0;
+}
+
+.landing-actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 8px;
+}
+
+/* ─── LOGIN FORM ──────────────────────────────────────────────────────────── */
+
+.login-form {
+    width: 100%;
+    max-width: 360px;
+}
+
+.login-error {
+    color: #ffcccc;
+    font-size: 14px;
+    margin-top: -8px;
+}
+
+/* ─── NAV LOGOUT ──────────────────────────────────────────────────────────── */
+
+.nav-logout {
+    margin-left: auto;
+}
+
+/* ─── CANCEL BUTTON VARIANT ───────────────────────────────────────────────── */
+
+.add-btn-cancel {
+    background-color: #aaaaaa;
+}
+
+.add-btn-cancel:hover {
+    background-color: #888888;
+    color: #ffffff;
+}
+
+/* ─── EXPERIENCE DETAIL LIST ──────────────────────────────────────────────── */
+
+.exp-detail-list {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+/* ─── SKILL EDIT MODAL ────────────────────────────────────────────────────── */
+
+.skill-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+}
+
+.skill-modal-overlay.active {
+    display: flex;
+}
+
+.skill-modal-box {
+    background: #f3f0d8;
+    border-radius: 4px;
+    padding: 40px;
+    width: 100%;
+    max-width: 420px;
+    position: relative;
+}
+
+.skill-modal-title {
+    font-size: 22px;
+    font-weight: normal;
+    color: #222222;
+    margin-bottom: 24px;
+}
+
 /* ─── FOOTER ──────────────────────────────────────────────────────────────── */
 
 footer {

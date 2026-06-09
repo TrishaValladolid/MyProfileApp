@@ -13,6 +13,7 @@ import com.example.demo.dao.EducationDAO;
 import com.example.demo.dao.ProjectDAO;
 import com.example.demo.dao.ExperienceDAO;
 import com.example.demo.dao.SkillDAO;
+import com.example.demo.dao.AdminDAO;
 import java.util.List;
 import java.util.ArrayList;
 import org.springframework.stereotype.Controller;
@@ -23,45 +24,41 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class HomeController {
 
-    @Autowired
-    private PersonDAO personDAO;
-    @Autowired
-    private EducationDAO educationDAO;
-    @Autowired
-    private ProjectDAO projectDAO;
-    @Autowired
-    private ExperienceDAO experienceDAO;
-    @Autowired
-    private SkillDAO skillDAO;
+    @Autowired private PersonDAO personDAO;
+    @Autowired private EducationDAO educationDAO;
+    @Autowired private ProjectDAO projectDAO;
+    @Autowired private ExperienceDAO experienceDAO;
+    @Autowired private SkillDAO skillDAO;
+    @Autowired private AdminDAO adminDAO;
+
+    private boolean isAdmin(HttpSession session) {
+        return "admin".equals(session.getAttribute("role"));
+    }
 
     @GetMapping("/")
-    public String profile(Model model) {
+    public String profile(HttpSession session, Model model) {
+        if (session.getAttribute("role") == null) return "redirect:/landing";
 
-        // retrieve person data from the DAO
         Person person = personDAO.getPerson();
         model.addAttribute("person", person);
 
-        // retrieve education data from the DAO
         List<Education> educationList = educationDAO.getEducation();
         model.addAttribute("educationList", educationList);
 
-        // retrieve education details from the DAO
         List<EducationDetail> educationDetailList = educationDAO.getEducationDetails();
         model.addAttribute("educationDetailList", educationDetailList);
 
-        // retrieve project data from the DAO
         List<Project> projectList = projectDAO.getProjects();
         model.addAttribute("projectList", projectList);
 
-        // retrieve project details from the DAO
         List<ProjectDetail> projectDetailList = projectDAO.getProjectDetails();
         model.addAttribute("projectDetailList", projectDetailList);
 
-        // group projects into chunks of 3 for the carousel
         List<List<Project>> projectChunks = new ArrayList<>();
         int chunkSize = 3;
         for (int i = 0; i < projectList.size(); i += chunkSize) {
@@ -69,32 +66,68 @@ public class HomeController {
         }
         model.addAttribute("projectChunks", projectChunks);
 
-        // retrieve experience data from the DAO
         List<Experience> experienceList = experienceDAO.getExperiences();
         model.addAttribute("experienceList", experienceList);
 
-        // retrieve experience details from the DAO
         List<ExperienceDetail> experienceDetailList = experienceDAO.getExperienceDetails();
         model.addAttribute("experienceDetailList", experienceDetailList);
 
-        // retrieve skills from the DAO
         List<Skill> skillList = skillDAO.getSkills();
         model.addAttribute("skillList", skillList);
+
+        model.addAttribute("isAdmin", isAdmin(session));
 
         return "profile";
     }
 
-    // GET - shows the Add Education form page
+    @GetMapping("/landing")
+    public String landing() {
+        return "landing";
+    }
+
+    @GetMapping("/guest")
+    public String loginAsGuest(HttpSession session) {
+        session.setAttribute("role", "guest");
+        return "redirect:/";
+    }
+
+    @GetMapping("/login")
+    public String showLoginPage() {
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String processLogin(@RequestParam String username,
+                               @RequestParam String password,
+                               HttpSession session,
+                               Model model) {
+        if (adminDAO.validateAdmin(username, password)) {
+            session.setAttribute("role", "admin");
+            return "redirect:/";
+        }
+        model.addAttribute("error", "Invalid username or password.");
+        return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/landing";
+    }
+
     @GetMapping("/education/add")
-    public String showAddEducationForm() {
+    public String showAddEducationForm(HttpSession session) {
+        if (!isAdmin(session)) return "redirect:/landing";
         return "addEducation";
     }
 
-    // POST - receives the form data and saves it to the DB
     @PostMapping("/education/save")
     public String saveEducation(@ModelAttribute Education education,
                                 @RequestParam(value = "coursework", required = false) List<String> coursework,
-                                @RequestParam(value = "certifications", required = false) List<String> certifications) {
+                                @RequestParam(value = "certifications", required = false) List<String> certifications,
+                                HttpSession session) {
+        if (!isAdmin(session)) return "redirect:/landing";
+
         educationDAO.insertEducation(education);
         int newId = educationDAO.getLastInsertedEducationId();
 
@@ -117,16 +150,18 @@ public class HomeController {
         return "redirect:/";
     }
 
-    // GET - shows the Add Project form page
     @GetMapping("/project/add")
-    public String showAddProjectForm() {
+    public String showAddProjectForm(HttpSession session) {
+        if (!isAdmin(session)) return "redirect:/landing";
         return "addProject";
     }
 
-    // POST - receives the form data, saves the project and its details to the DB
     @PostMapping("/project/save")
     public String saveProject(@ModelAttribute Project project,
-                              @RequestParam(value = "descriptions", required = false) List<String> descriptions) {
+                              @RequestParam(value = "descriptions", required = false) List<String> descriptions,
+                              HttpSession session) {
+        if (!isAdmin(session)) return "redirect:/landing";
+
         projectDAO.insertProject(project);
         if (descriptions != null) {
             int newId = projectDAO.getLastInsertedProjectId();
@@ -139,18 +174,20 @@ public class HomeController {
         return "redirect:/";
     }
 
-    // GET - shows the Edit Project form page pre-filled with existing data
     @GetMapping("/project/edit/{id}")
-    public String showEditProjectForm(@PathVariable("id") int id, Model model) {
+    public String showEditProjectForm(@PathVariable("id") int id, HttpSession session, Model model) {
+        if (!isAdmin(session)) return "redirect:/landing";
         model.addAttribute("project", projectDAO.getProjectById(id));
         model.addAttribute("projectDetails", projectDAO.getProjectDetailsByProjectId(id));
         return "editProject";
     }
 
-    // POST - updates the project and replaces its details in the DB
     @PostMapping("/project/update")
     public String updateProject(@ModelAttribute Project project,
-                                @RequestParam(value = "descriptions", required = false) List<String> descriptions) {
+                                @RequestParam(value = "descriptions", required = false) List<String> descriptions,
+                                HttpSession session) {
+        if (!isAdmin(session)) return "redirect:/landing";
+
         projectDAO.updateProject(project);
         projectDAO.deleteProjectDetailsByProjectId(project.getProjectId());
         if (descriptions != null) {
@@ -163,16 +200,18 @@ public class HomeController {
         return "redirect:/";
     }
 
-    // GET - shows the Add Experience form page
     @GetMapping("/experience/add")
-    public String showAddExperienceForm() {
+    public String showAddExperienceForm(HttpSession session) {
+        if (!isAdmin(session)) return "redirect:/landing";
         return "addExperience";
     }
 
-    // POST - receives the form data, saves the experience and its details to the DB
     @PostMapping("/experience/save")
     public String saveExperience(@ModelAttribute Experience experience,
-                                 @RequestParam(value = "descriptions", required = false) List<String> descriptions) {
+                                 @RequestParam(value = "descriptions", required = false) List<String> descriptions,
+                                 HttpSession session) {
+        if (!isAdmin(session)) return "redirect:/landing";
+
         experienceDAO.insertExperience(experience);
         if (descriptions != null) {
             int newId = experienceDAO.getLastInsertedExperienceId();
@@ -185,18 +224,20 @@ public class HomeController {
         return "redirect:/";
     }
 
-    // GET - shows the Edit Experience form page pre-filled with existing data
     @GetMapping("/experience/edit/{id}")
-    public String showEditExperienceForm(@PathVariable("id") int id, Model model) {
+    public String showEditExperienceForm(@PathVariable("id") int id, HttpSession session, Model model) {
+        if (!isAdmin(session)) return "redirect:/landing";
         model.addAttribute("experience", experienceDAO.getExperienceById(id));
         model.addAttribute("experienceDetails", experienceDAO.getExperienceDetailsByExperienceId(id));
         return "editExperience";
     }
 
-    // POST - updates the experience and replaces its details in the DB
     @PostMapping("/experience/update")
     public String updateExperience(@ModelAttribute Experience experience,
-                                   @RequestParam(value = "descriptions", required = false) List<String> descriptions) {
+                                   @RequestParam(value = "descriptions", required = false) List<String> descriptions,
+                                   HttpSession session) {
+        if (!isAdmin(session)) return "redirect:/landing";
+
         experienceDAO.updateExperience(experience);
         experienceDAO.deleteExperienceDetailsByExperienceId(experience.getExperienceId());
         if (descriptions != null) {
@@ -209,29 +250,29 @@ public class HomeController {
         return "redirect:/";
     }
 
-    // GET - shows the Add Skill form page
     @GetMapping("/skill/add")
-    public String showAddSkillForm() {
+    public String showAddSkillForm(HttpSession session) {
+        if (!isAdmin(session)) return "redirect:/landing";
         return "addSkill";
     }
 
-    // POST - receives the form data and saves the skill to the DB
     @PostMapping("/skill/save")
-    public String saveSkill(@ModelAttribute Skill skill) {
+    public String saveSkill(@ModelAttribute Skill skill, HttpSession session) {
+        if (!isAdmin(session)) return "redirect:/landing";
         skillDAO.insertSkill(skill);
         return "redirect:/";
     }
 
-    // GET - shows the Edit Skill form page pre-filled with existing data
     @GetMapping("/skill/edit/{id}")
-    public String showEditSkillForm(@PathVariable("id") int id, Model model) {
+    public String showEditSkillForm(@PathVariable("id") int id, HttpSession session, Model model) {
+        if (!isAdmin(session)) return "redirect:/landing";
         model.addAttribute("skill", skillDAO.getSkillById(id));
         return "editSkill";
     }
 
-    // POST - updates the skill in the DB
     @PostMapping("/skill/update")
-    public String updateSkill(@ModelAttribute Skill skill) {
+    public String updateSkill(@ModelAttribute Skill skill, HttpSession session) {
+        if (!isAdmin(session)) return "redirect:/landing";
         skillDAO.updateSkill(skill);
         return "redirect:/";
     }
