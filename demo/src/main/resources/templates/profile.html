@@ -31,11 +31,11 @@
     <!-- ABOUT ME -->
     <section id="about">
         <div class="about-left wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.1s">
-            <p><strong>Name:</strong> <span th:text="${person.firstName} + ' ' + ${person.lastName}">Trisha Laine Valladolid</span></p>
-            <p><strong>Location:</strong> <span th:text="${person.location}">Metro Manila</span></p>
+            <p><strong>👩🏻Name:</strong> <span th:text="${person.firstName} + ' ' + ${person.lastName}">Trisha Laine Valladolid</span></p>
+            <p><strong>📍Location:</strong> <span th:text="${person.location}">Metro Manila</span></p>
             <br>
-            <p><strong>Phone:</strong> <span th:text="${person.phone}">0969 1203 789</span></p>
-            <p><strong>Email:</strong> <span th:text="${person.email}">trishvalla@mail.com</span></p>
+            <p><strong>📞Phone:</strong> <span th:text="${person.phone}">0969 1203 789</span></p>
+            <p><strong>💌Email:</strong> <span th:text="${person.email}">trishvalla@mail.com</span></p>
         </div>
         <div class="about-right wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.3s">
             <p th:text="${person.firstName} + ' ' + ${person.longIntroduction}">Trisha is a Java Developer living in the bustling Metro Manila.</p>
@@ -45,7 +45,7 @@
     <!-- EDUCATION -->
     <section id="education">
         <div class="section-header wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.1s">
-            <h2>Education</h2>
+            <h2>My Education 🏫</h2>
             <a th:if="${isAdmin}" href="/education/add" class="add-btn" title="Add Education">+</a>
         </div>
 
@@ -69,7 +69,7 @@
     <!-- PROJECTS -->
     <section id="projects">
         <div class="section-header wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.1s">
-            <h2>Projects</h2>
+            <h2>My Projects 🚀</h2>
             <a th:if="${isAdmin}" href="/project/add" class="add-btn" title="Add Project">+</a>
         </div>
 
@@ -95,7 +95,7 @@
                                 </div>
                                 <div th:if="${isAdmin}" class="proj-card-actions">
                                     <a th:href="@{/project/edit/{id}(id=${proj.projectId})}"
-                                       class="add-btn add-btn-sm" title="Edit"><i class="bi bi-pencil-square"></i></a>
+                                       class="add-btn add-btn-sm" title="Edit">✏️</a>
                                 </div>
                             </div>
                         </div>
@@ -110,7 +110,7 @@
     <!-- EXPERIENCE -->
     <section id="experience">
         <div class="section-header wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.1s">
-            <h2>Experience</h2>
+            <h2>My Experience 💼</h2>
             <a th:if="${isAdmin}" href="/experience/add" class="add-btn" title="Add Experience">+</a>
         </div>
 
@@ -128,7 +128,7 @@
             </ul>
             <div th:if="${isAdmin}" class="exp-card-actions">
                 <a th:href="@{/experience/edit/{id}(id=${exp.experienceId})}"
-                   class="add-btn add-btn-sm" title="Edit"><i class="bi bi-pencil-square"></i></a>
+                   class="add-btn add-btn-sm" title="Edit">✏️</a>
             </div>
         </div>
     </section>
@@ -136,7 +136,7 @@
     <!-- SKILLS -->
     <section id="skills">
         <div class="skills-top-row wow fadeInUp animated" data-wow-duration="1.2s" data-wow-delay="0.1s">
-            <h2>Skills</h2>
+            <h2>My Skills 🛠️</h2>
             <a th:if="${isAdmin}" href="/skill/add" class="add-btn" title="Add Skill">+</a>
         </div>
 
